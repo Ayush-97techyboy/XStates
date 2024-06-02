@@ -1,5 +1,7 @@
-.city-selector {
+.citySelector {
   text-align: center;
+  justify-content: center;
+  align-items: center;
   margin-top: 50px;
   font-family: Arial, sans-serif;
 }

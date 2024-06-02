@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { 
-//   Select,
-//   MenuItem,
-//   FormControl,
-//   InputLabel,
-//   OutlinedInput,
-//   Button,
-//   Typography
-//  } from "@mui/material";
-import styles from "../Countries/Countries.module.css";
+import {
+  Container,
+  Select,
+  MenuItem,
+  Typography,
+  Box,
+  FormControl
+} from "@mui/material";
+// import styles from "../Countries/Countries.module.css";
 
 export default function useFetch(url) {
   const [countries, setCountries] = useState([]);
@@ -65,69 +64,92 @@ export default function useFetch(url) {
   }, [selectedState]);
 
   return (
-    <div>
-      <h1>Select Location</h1>
-      <select
-        value={selectedCountry}
-        onChange={(e) => setSelectedCountry(e.target.value)}
-        className={styles.dropdown}
+    <Container>
+      <Typography
+        variant="h4"
+        sx={{
+          mt: 5,
+          fontStyle: "italic",
+          fontWeight: "bold",
+          textDecoration: "underline",
+        }}
       >
-        <option value="" disabled>
-          Select Country
-        </option>
-        {countries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
-      </select>
+        Select Location
+      </Typography>
 
-      <select
-        value={selectedState}
-        onChange={(e) => setSelectedState(e.target.value)}
-        className={styles.dropdown}
-      >
-        <option value="" disabled>
-          Select States
-        </option>
-        {states.map((state) => (
-          <option key={state} value={state}>
-            {state}
-          </option>
-        ))}
-      </select>
+      <Box sx={{ display: "flex", justifyContent: "space-between", m: 3 }}>
+        <FormControl sx={{ minWidth: 200, width: "50%" }}>
+          <Select
+            value={selectedCountry}
+            displayEmpty
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select Country</em>
+            </MenuItem>
+            {countries.map((country) => (
+              <MenuItem key={country} value={country}>
+                {country}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-      <select
-        value={selectedCity}
-        onChange={(e) => setSelectedCity(e.target.value)}
-        className={styles.dropdown}
-      >
-        <option value="" disabled>
-          Select City
-        </option>
-        {cities.map((city) => (
-          <option key={city} value={city}>
-            {city}
-          </option>
-        ))}
-      </select>
+        <FormControl
+          sx={{ minWidth: 200, width: "30%" }}
+          disabled={!selectedCountry}
+        >
+          <Select
+            value={selectedState}
+            displayEmpty
+            onChange={(e) => setSelectedState(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select State</em>
+            </MenuItem>
+            {states.map((state) => (
+              <MenuItem key={state} value={state}>
+                {state}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ minWidth: 200 }} disabled={!selectedState}>
+          <Select
+            value={selectedCity}
+            displayEmpty
+            onChange={(e) => setSelectedCity(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select City</em>
+            </MenuItem>
+            {cities.map((city) => (
+              <MenuItem key={city} value={city}>
+                {city}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
       {selectedCity && selectedState && selectedCountry && (
-
-        <p>You Selected: 
-
-          {selectedCity}, {selectedState}, {selectedCountry}
-        </p>
-      // <Typography variant="h6" gutterBottom>
-      //   // <p className={styles.city-selector}></p>
-      //     {" "}
-      //     You Selected:        
-      //     <span className={styles.highlight}>,</span> 
-      //     <span>{selectedState},</span>, 
-      //     <span className={styles.fade}>{selectedCountry},</span>
-      //     {" "}
-      //   </Typography> */}
-       )}
-    </div>
+        <Typography variant="h6" gutterBottom>
+          You Selected:
+          <span style={{ fontWeight: "bold", fontSize: "1.5em" }}>
+            {" "}
+            {selectedCity},{" "}
+          </span>
+          <span style={{ color: "gray", fontSize: "1.2em" }}>
+            {" "}
+            {selectedState},{" "}
+          </span>
+          <span style={{ color: "lightgray", fontSize: "1em" }}>
+            {" "}
+            {selectedCountry}{" "}
+          </span>
+        </Typography>
+      )}
+    </Container>
   );
 }
