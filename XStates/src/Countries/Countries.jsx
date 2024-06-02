@@ -6,7 +6,7 @@ import {
   MenuItem,
   Typography,
   Box,
-  FormControl
+  FormControl,
 } from "@mui/material";
 // import styles from "../Countries/Countries.module.css";
 
@@ -69,9 +69,8 @@ export default function useFetch(url) {
         variant="h4"
         sx={{
           mt: 5,
-          fontStyle: "italic",
           fontWeight: "bold",
-          textDecoration: "underline",
+          textAlign: "center",
         }}
       >
         Select Location
@@ -134,7 +133,7 @@ export default function useFetch(url) {
       </Box>
 
       {selectedCity && selectedState && selectedCountry && (
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
           You Selected:
           <span style={{ fontWeight: "bold", fontSize: "1.5em" }}>
             {" "}
